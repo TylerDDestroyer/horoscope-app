@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='aos.css') }}">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title>Horoscope</title>
+</head>
+<body style="background-color: rgb(88, 202, 84);">
+    <div class="container my-auto">
+        <div class="container text-center mt-5" data-aos="fade-in" data-aos-easing="ease-in" data-aos-duration="500" >
+            <h2 class="fw-bold">Horoscope</h2>
+            <p>{{ show_date }}</p>
+        </div>
+        <div class="container text-center mt-5" data-aos="fade-in" data-aos-easing="ease-in" data-aos-duration="1500" >
+            <form action="{{ url_for('get_horoscope') }}" method="POST" class="text-center">
+                <div class="container" style="width: 450px;">
+                    <div class="input-group ">
+                        <span class="input-group-text" id="basic-addon1">Select your birthday</span>
+                        <input type="date" class="form-control" placeholder="Your birthday" id="birthdate" name="birthday" required>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success mt-3">Get horoscope</button>
+            </form>
+        </div>
+        <div class="container mt-5 text-bold text-center" data-aos="fade-up" data-aos-easing="ease-in" data-aos-duration="1800">
+            {% if horoscope %}
+            <h3 class="text-uppercase my-4">{{ zodiac_sign }}</h3>
+            <p>PREDICTION</p>          
+            <p>{{ horoscope }}</p>
+            {% elif error_message %}
+            <p>{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='aos.js') }}"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
